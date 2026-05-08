@@ -24,6 +24,15 @@ db = client[os.environ['DB_NAME']]
 
 # ---------- App ----------
 app = FastAPI(title="Zentia VolleyPro API")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=False,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 api = APIRouter(prefix="/api")
 
 JWT_SECRET = os.environ.get("JWT_SECRET", "dev_secret_change_me")
@@ -908,17 +917,6 @@ async def root():
 
 # ---------- Mount ----------
 app.include_router(api)
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=[
-        "https://zentia-198f4.web.app",
-        "http://localhost:3000",
-    ],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 
 
 @app.on_event("startup")
