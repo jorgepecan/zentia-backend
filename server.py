@@ -911,9 +911,11 @@ app.include_router(api)
 
 app.add_middleware(
     CORSMiddleware,
+    allow_origins=[
+        "https://zentia-198f4.web.app",
+        "http://localhost:3000",
+    ],
     allow_credentials=True,
-    allow_origins=["*"],
-    allow_origin_regex=".*",
     allow_methods=["*"],
     allow_headers=["*"],
 )
